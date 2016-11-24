@@ -1,0 +1,29 @@
+{
+    "name": "skiddle/skiddle-php-sdk",
+    "description": "PHP Wrapper for Skiddle API",
+    "keywords": ["skiddle", "sdk", "php"],
+    "type": "library",
+    "homepage": "https://github.com/Skiddle/skiddle-php-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Skiddle",
+            "homepage": "https://github.com/Skiddle/web-api/graphs/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0 || ^7.0",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SkiddleSDK\\": "src"
+        }
+    },
+    "scripts": {
+        "test": "phpcs src -v && phpunit"
+    }
+}

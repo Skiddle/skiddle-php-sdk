@@ -1,0 +1,143 @@
+/** vars **/
+$bg-color : #ededed;
+$text-color : #333;
+$red : #900;
+
+$body-font : 'Noto Sans', sans-serif;
+
+body {
+  background  : $bg-color;
+  color       : $text-color;
+  font-family : $body-font;
+}
+
+a {
+  color           : $text-color;
+  text-decoration : underline;
+  transition      : all linear 0.1s;
+}
+
+a:hover {
+  color : lighten($text-color, 20%);
+}
+
+header, nav {
+  padding       : 0.5rem 0 0;
+  border-bottom : 1px solid rgba(0, 0, 0, 0.1);
+  line-height   : 1
+}
+
+nav {
+  padding : 0.5em 0;
+
+  ul {
+    display : inline-block;
+
+    li {
+      display : inline;
+
+      a {
+        padding : 10px;
+        display : inline-block;
+
+        &:first-of-type {
+          padding-left : 0;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  padding     : 0.5rem 0 0;
+  border-top  : 1px solid rgba(0, 0, 0, 0.1);
+  line-height : 1;
+  font-size   : 0.75rem;
+}
+
+.container {
+  max-width : 75rem;
+  margin    : 0 auto;
+}
+
+.red {
+  color : $red;
+}
+
+.listless, .listless li {
+  list-style-type : none;
+  margin          : 0;
+  padding         : 0;
+}
+
+.resultlist li {
+  padding-bottom : 1em;
+  border-bottom  : 1px solid rgba(0, 0, 0, 0.1);
+  display        : inline-block;
+  width          : 100%;
+  margin-bottom  : 1rem;
+
+  &:last-of-type {
+    border-bottom : 0;
+  }
+
+  img {
+    float        : left;
+    margin-right : 0.5rem;
+    max-width    : 33%;
+
+    @media(max-width : 39rem) {
+      width    : 100%;
+      float    : none;
+      margin   : 0 auto;
+      display  : block;
+      position : relative;
+
+    }
+  }
+
+  div {
+    float     : left;
+    max-width : 66%;
+
+    @media(max-width : 39rem) {
+      float     : none;
+      max-width : 100%;
+    }
+  }
+}
+
+[role="debug-info"] {
+  padding     : 0 10px;
+  background  : #ff9;
+  border      : 2px solid #ffa500;
+  line-height : 1;
+  word-break  : break-all;
+  max-width   : 100%;
+
+  pre, code {
+    display       : block;
+    font-family   : monospace;
+    margin        : 1em 0px 1em;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    max-width     : 100%;
+    transition    : all linear 0.5s;
+
+    &:hover {
+      overflow    : visible;
+      word-wrap   : normal;
+      white-space : normal;
+    }
+  }
+}
+
+[role="error-info"] {
+  border      : 2px solid $red;
+  background  : lighten($red, 50%);
+  color       : $red;
+  padding     : 0 10px;
+  line-height : 1;
+
+}
