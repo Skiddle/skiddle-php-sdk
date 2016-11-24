@@ -44,7 +44,7 @@ There are a couple of ways to get the SDK integrated to your project, the easies
 
 You can also clone the git repository
 ````
-git clone https://github.com/Skiddle/skiddle-php-sdk ./
+git clone https://github.com/Skiddle/skiddle-php-sdk
 ````
 
 Or, simply download the zip [here] and unzip to your project.
@@ -73,7 +73,7 @@ The first step is to simply authenticate yourself - just tell the SDK what your 
 try {
     $session = new SkiddleSDK\SkiddleSession(['api_key'=>'APIKEYGOESHERE']);
 } catch (SkiddleSDK\SkiddleException $e) {
-    return $e->getMessage();
+    echo $e->getMessage();
     exit();
 }
 ```
@@ -89,10 +89,11 @@ After you have successfully authenticated yourself, you then need to pass your c
 To do this, simply call the setSession() method of the class you wish to use:
 
 ```php
+$events = new SkiddleSDK\Events;
 try {
     $events->setSession($session);
 } catch (SkiddleSDK\SkiddleException $e) {
-    return $e->getMessage();
+    echo $e->getMessage();
     exit();
 }
 ```
