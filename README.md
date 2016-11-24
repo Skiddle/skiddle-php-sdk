@@ -38,7 +38,7 @@ There are a couple of ways to get the SDK integrated to your project, the easies
 
 ````
 "require": {
-    "skiddle/skiddle-php-sdk": "dev-master"
+    "skiddle/skiddle-php-sdk": "1.0.0"
 }
 ````
 
@@ -47,7 +47,7 @@ You can also clone the git repository
 git clone https://github.com/Skiddle/skiddle-php-sdk
 ````
 
-Or, simply download the zip [here] and unzip to your project.
+Or, simply download the zip [here](https://github.com/Skiddle/skiddle-php-sdk/archive/master.zip) and unzip to your project.
 
 If using either of the last two methods, you will need to include the ````autoloader.php```` file in your project to load everything up
 
@@ -128,7 +128,7 @@ $listings = $events->getListings();
 foreach($listings->results as $result) {...}
 ```
 
-For a full list of arguments you can filter by, [have a look here](https://github.com/Skiddle/web-api/wiki)
+For a full list of arguments you can filter by, [have a look here](https://github.com/Skiddle/web-api/)
 
 # Things to note<a name="notes"></a>
 
@@ -146,7 +146,7 @@ For a full list of arguments you can filter by, [have a look here](https://githu
 
 # License<a name="license"></a>
 
-This SDK is licensed under the GNU General Public License v3.0.  [View the license here](LICENSE.md)
+This SDK is licensed under the GNU General Public License v3.0.  [View the license here](LICENSE)
 
 ---
 
