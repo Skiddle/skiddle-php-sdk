@@ -21,7 +21,7 @@ class SkiddleRequest
     /**
      * @var The URL we want to make calls to
      */
-    const API_URL = 'http://www.skiddle.com/api/';
+    const API_URL = 'https://www.skiddle.com/api/';
 
     /**
      * @var Whether we are in dev mode or not
@@ -31,7 +31,9 @@ class SkiddleRequest
     /**
      * Basic constructor
      */
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     /**
      * This function is what makes the actual call to the API.
@@ -44,7 +46,7 @@ class SkiddleRequest
      * @return string Will either return a JSON of the results, or an error exception
      * @throws SkiddleException
      */
-    public function call($url, $args = [], $asArray = false,$headers = [], $method = 'GET')
+    public function call($url, $args = [], $asArray = false, $headers = [], $method = 'GET')
     {
         //If we have no endpoint, stop here
         if (!isset($url)) {
@@ -87,7 +89,7 @@ class SkiddleRequest
             $this->debug = '<pre>Debug info</pre>';
             $this->debug = '<pre>Call made at ' . date('Y-m-d H:i:s', $start) . '</pre>';
             $debugurl = $options[CURLOPT_URL];
-            $debugurl = str_replace($args['api_key'],'xxxxxxxxxxxxxxxxxx',$debugurl);//Hide the API Key from prying eyes
+            $debugurl = str_replace($args['api_key'], 'xxxxxxxxxxxxxxxxxx', $debugurl);//Hide the API Key from prying eyes
             $this->debug .= '<pre>URL called: ' . $debugurl . '</pre>';
         }
 
@@ -97,7 +99,7 @@ class SkiddleRequest
 
         if ($this->dev_mode) {
             $end = strtotime('now');
-            $this->debug .= '<pre>cURL request info: ' . str_replace($args['api_key'],'xxxxxxxxxxxxxxxxxx',json_encode(curl_getinfo($ch))) . '</pre>';
+            $this->debug .= '<pre>cURL request info: ' . str_replace($args['api_key'], 'xxxxxxxxxxxxxxxxxx', json_encode(curl_getinfo($ch))) . '</pre>';
             $this->debug .= '<pre>Response at ' . date('Y-m-d H:i:s', $end) . '</pre>';
             $this->debug .= '<pre>Time (seconds):' . ($end - $start) . '</pre>';
         }
@@ -128,13 +130,13 @@ class SkiddleRequest
             }
         }
 
-        return $this->format($rawBody,$asArray);
+        return $this->format($rawBody, $asArray);
     }
 
     /**
      * Simply take the data string and return as JSON
-     * @param  string       $data JSON String
-     * @param  bool         $asArray Whether or not to return results as an object or array
+     * @param  string $data JSON String
+     * @param  bool   $asArray Whether or not to return results as an object or array
      * @return object|array Decoded object or array
      * @throws SkiddleException
      */
@@ -152,7 +154,8 @@ class SkiddleRequest
      * Here we can choose to get some debug info if we need it
      * @return mixed
      */
-    public function getDebugInfo(){
+    public function getDebugInfo()
+    {
         return $this->debug;
     }
 

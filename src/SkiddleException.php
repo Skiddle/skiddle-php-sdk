@@ -11,5 +11,5 @@ namespace SkiddleSDK;
 
 class SkiddleException extends \Exception
 {
-	
+
 }

@@ -10,27 +10,30 @@
 
 namespace SkiddleSDK;
 
-class Events extends SkiddleBase {
+class Events extends SkiddleBase
+{
 
-	/**
-	 * @var The endpoint we will be sending requests to
-	 */
-	const ENDPOINT = '/events/search/';
+    /**
+     * @var The endpoint we will be sending requests to
+     */
+    const ENDPOINT = '/events/search/';
 
-	/**
-	 * Inherit constructor from SkiddleBase
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+    /**
+     * Inherit constructor from SkiddleBase
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Pass arguments in and execute call
-     * @param bool  $asArray Whether or not to return results as an array
+     * @param bool $asArray Whether or not to return results as an array
      * @return obj An object of stuff
      */
-	public function getListings($asArray = false) {
-		return $this->makeCall(self::ENDPOINT,$asArray);
-	}
+    public function getListings($asArray = false)
+    {
+        return $this->makeCall(self::ENDPOINT, $asArray);
+    }
 
 }
