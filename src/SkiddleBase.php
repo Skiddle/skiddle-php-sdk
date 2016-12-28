@@ -68,6 +68,14 @@ class SkiddleBase
     }
 
     /**
+     * Totally clear out the conditions array
+     */
+    public function clearCond()
+    {
+        $this->conditions = [];
+    }
+
+    /**
      * Connect to request class to make the actual call
      * @param  string $endpoint The endpoint URL to call
      * @param bool    $asArray Whether to return results as array or object
@@ -80,6 +88,9 @@ class SkiddleBase
 
         //QUIRK: API expects eventcode to be uppercase
         if (isset($args['eventcode'])) {
+            if (is_array($args['eventcode'])) {
+                $args['eventcode'] = implode(',', $args['eventcode']);//also needs to be comma seperated
+            }
             $args['eventcode'] = strtoupper($args['eventcode']);
         }
         //append the api key to the arguments
