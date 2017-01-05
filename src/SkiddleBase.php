@@ -50,6 +50,9 @@ class SkiddleBase
      */
     public function addCond($key, $val)
     {
+        if (is_array($val)) {
+            $val = implode(',', $val);
+        }
         $this->conditions[$key] = $val;
     }
 
@@ -88,9 +91,6 @@ class SkiddleBase
 
         //QUIRK: API expects eventcode to be uppercase
         if (isset($args['eventcode'])) {
-            if (is_array($args['eventcode'])) {
-                $args['eventcode'] = implode(',', $args['eventcode']);//also needs to be comma seperated
-            }
             $args['eventcode'] = strtoupper($args['eventcode']);
         }
         //append the api key to the arguments
