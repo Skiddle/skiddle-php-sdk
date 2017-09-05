@@ -118,9 +118,21 @@ $events->delCond('ticketsavailable');
 ```
 
 
-###Get Results<a name="results"></a>
+### Get Results<a name="results"></a>
 
 Once you have built up your filter list, you can then get your listings!
+
+### Get a single result
+
+If you need to get a single result, you can call `getListing()`, without having to build an array of arguments - just pass the relevant ID
+
+For example:
+
+```
+$listing = $events->getListing(12345);
+
+var_dump($listing);
+```
 
 ```php
 $listings = $events->getListings();
