@@ -18,6 +18,7 @@ The purpose of the SDK is to allow for easy access to the Skiddle API.  This wil
   2. [Get the class Ready](#getready)
   3. [Add and Remove conditions](#addremove)
   4. [Get results](#results)
+  5. [Get a single result](#resultsingle)
 4. [Things to note](#notes)
 5. [License](#license)
 6. [Contact](#contact)
@@ -122,18 +123,6 @@ $events->delCond('ticketsavailable');
 
 Once you have built up your filter list, you can then get your listings!
 
-### Get a single result
-
-If you need to get a single result, you can call `getListing()`, without having to build an array of arguments - just pass the relevant ID
-
-For example:
-
-```
-$listing = $events->getListing(12345);
-
-var_dump($listing);
-```
-
 ```php
 $listings = $events->getListings();
 
@@ -141,6 +130,18 @@ foreach($listings->results as $result) {...}
 ```
 
 For a full list of arguments you can filter by, [have a look here](https://github.com/Skiddle/web-api/)
+
+### Get a single result<a name="resultsingle"></a>
+
+If you need to get a single result, you can call `getListing()`, without having to build an array of arguments - just pass the relevant ID
+
+For example:
+
+```php
+$listing = $events->getListing(12345);
+
+var_dump($listing);
+```
 
 # Things to note<a name="notes"></a>
 
