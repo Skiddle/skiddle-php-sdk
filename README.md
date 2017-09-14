@@ -146,7 +146,7 @@ var_dump($listing);
 # Things to note<a name="notes"></a>
 
 1.  When querying eventcodes, try to keeo values uppercase.  Passing CLUB will work, whereas passing club may return an error
-2.  When using the minDate and maxDate conditions, timestamps need to be in y-m-d format.
+2.  When using the minDate and maxDate conditions, timestamps need to be in either `Y-m-d` or `Y-m-dTH:i:s` format.
 3.  Don't like objects?  You can get results in array format by passing a boolean in ```getListings()```:
     ```php
     $listings = $events->getListings(true);

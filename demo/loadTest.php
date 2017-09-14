@@ -7,7 +7,7 @@ require_once(dirname(__FILE__) . '/../autoloader.php');
 /**
  * Perform the test here using the SDK.  Also output a code block to the debug block so people can see the example
  * @param int $test The test id to run
- * @return object|\SkiddleSDK\obj|string Either a result block or an error
+ * @return object|string
  */
 function doTest($test)
 {
@@ -16,7 +16,6 @@ function doTest($test)
         $session = new SkiddleSDK\SkiddleSession(['api_key'=>'PUT-YOUR-API-KEY-HERE','dev_mode'=>true]);
     } catch (SkiddleSDK\SkiddleException $e) {
         return $e->getMessage();
-        exit();
     }
 
     $events = new SkiddleSDK\Events;
@@ -24,7 +23,6 @@ function doTest($test)
         $events->setSession($session);
     } catch (SkiddleSDK\SkiddleException $e) {
         return $e->getMessage();
-        exit();
     }
 
     $connect_block = <<<BLOCK
@@ -106,12 +104,12 @@ $results = $events->getListings(); ?>',true);
         case 5:
             //test 5 - date range
             try {
-                $events->addCond('minDate',date('y-m-d',strtotime('6pm Today')));
-                $events->addCond('maxDate',date('y-m-d',strtotime('12pm Next Tuesday')));
+                $events->addCond('minDate',date('Y-m-d\TH:i:s',strtotime('today 6pm')));
+                $events->addCond('maxDate',date('Y-m-d\TH:i:s',strtotime('Next Tuesday 12pm')));
                 $results = $events->getListings();
                 $debugInfo = $events->getDebugInfo();
-                $debugInfo .= highlight_string('<?php '.$connect_block.'$events->addCond(\'minDate\',strtotime(\'6pm Today\'));
-$events->addCond(\'maxDate\',strtotime(\'12pm Next Tuesday\'));
+                $debugInfo .= highlight_string('<?php '.$connect_block.'$events->addCond(\'minDate\',date(\'Y-m-d\TH:i:s\',strtotime(\'today 6pm\')));
+$events->addCond(\'maxDate\',date(\'Y-m-d\TH:i:s\',strtotime(\'Next Tuesday 12pm\')));
 $results = $events->getListings(); ?>',true);
             } catch (SkiddleSDK\SkiddleException $e) {
                 return $e->getMessage();
