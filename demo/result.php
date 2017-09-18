@@ -22,7 +22,7 @@ $title = getTitle($_GET['test']);
         <?php if ($_GET['test'] != 1): ?>
             <li><a href="result.php?test=<?php echo $_GET['test'] - 1; ?>">Previous test</a></li>
         <?php endif; ?>
-        <?php if ($_GET['test'] != 7): ?>
+        <?php if ($_GET['test'] != 8): ?>
             <li><a href="result.php?test=<?php echo $_GET['test'] + 1; ?>">Next test</a></li>
         <?php endif; ?>
     </ul>
@@ -44,6 +44,22 @@ $title = getTitle($_GET['test']);
         </div>
     <?php else: ?>
         <ul class="resultlist listless">
+            <?php if($_GET['test'] == 7):
+                //test 7 is a single listing
+                $result = $results->results;
+            ?>
+                <li>
+                    <img src="<?php echo $result->largeimageurl; ?>"/>
+                    <div>
+                        <h3><?php echo $result->eventname; ?></h3>
+                        <p class="sub">
+                            <time datetime="<?php echo $result->date; ?>"><?php echo date('l, jS F Y', strtotime($result->date)); ?></time>
+                            | <?php echo $result->venue->name; ?>, <?php echo $result->venue->town; ?>  </p>
+                        <p><?php echo $result->description; ?></p>
+                        <p><a href="<?php echo $result->link; ?>" target="_blank">Find out more</a></p>
+                    </div>
+                </li>
+            <?php else: ?>
             <?php foreach ($results->results as $result): ?>
                 <li>
                     <img src="<?php echo $result->largeimageurl; ?>"/>
@@ -57,6 +73,7 @@ $title = getTitle($_GET['test']);
                     </div>
                 </li>
             <?php endforeach; ?>
+            <?php endif; ?>
         </ul>
     <?php endif; ?>
 </main>

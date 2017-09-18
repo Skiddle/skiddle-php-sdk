@@ -22,7 +22,8 @@
         <li><a href="result.php?test=4">The best of everything - Tribute Acts</a></li>
         <li><a href="result.php?test=5">Anything happening between teatime tonight and dinnertime next tuesday. To clarify I have my tea at 6 and eat lunch at 12</a></li>
         <li><a href="result.php?test=6">Events that still have tickets on sale so that I don't look like a right idiot at the box office</a></li>
-        <li><a href="result.php?test=7">Screw it, just get me all your events</a></li>
+        <li><a href="result.php?test=7">Details about an up-and-coming act</a></li>
+        <li><a href="result.php?test=8">Screw it, just get me all your events</a></li>
     </ul>
 </main>
 

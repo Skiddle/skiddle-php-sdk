@@ -13,7 +13,7 @@ function doTest($test)
 {
     global $debugInfo;
     try {
-        $session = new SkiddleSDK\SkiddleSession(['api_key'=>'PUT-YOUR-API-KEY-HERE','dev_mode'=>true]);
+        $session = new SkiddleSDK\SkiddleSession(['api_key'=>'23fcafe1bc842f250083bb1923c9f9ee','dev_mode'=>true]);
     } catch (SkiddleSDK\SkiddleException $e) {
         return $e->getMessage();
     }
@@ -129,6 +129,18 @@ $results = $events->getListings(); ?>',true);
             }
             return $results;
             break;
+        case 7:
+            //test 7 - individual event
+            try {
+
+                $results = $events->getListing(12993676);
+                $debugInfo = $events->getDebugInfo();
+                $debugInfo .= highlight_string('<?php '.$connect_block.'$events->getListing(12993676); ?>',true);
+            } catch (SkiddleSDK\SkiddleException $e) {
+                return $e->getMessage();
+            }
+            return $results;
+            break;
         default:
             //everything
             try {
@@ -168,6 +180,9 @@ function getTitle($test)
             break;
         case 6:
             return "Events that still have tickets on sale so that I don't look like a right idiot at the box office";
+            break;
+        case 7:
+            return "Details about an up-and-coming act";
             break;
         default:
             return "Screw it, just get me all your events";
