@@ -13,7 +13,7 @@ function doTest($test)
 {
     global $debugInfo;
     try {
-        $session = new SkiddleSDK\SkiddleSession(['api_key'=>'23fcafe1bc842f250083bb1923c9f9ee','dev_mode'=>true]);
+        $session = new SkiddleSDK\SkiddleSession(['api_key'=>'YOUR-API-KEY-HERE','dev_mode'=>true]);
     } catch (SkiddleSDK\SkiddleException $e) {
         return $e->getMessage();
     }
