@@ -29,6 +29,8 @@ The purpose of the SDK is to allow for easy access to the Skiddle API.  This wil
 
 The API requires PHP > 5.4.0, due to using autoloading and new array constructs.  It also requires cURL to be enabled, which is normally done by default in PHP, but best to double check.
 
+To connect to the API, TLS v1.2 or above is required. This has been supported by Curl using OpenSSL since version 1.0.1
+
 ---
 
 ## Installation<a name="installation"></a>
