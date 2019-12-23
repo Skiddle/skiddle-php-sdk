@@ -79,6 +79,67 @@ class SkiddleBase
     }
 
     /**
+     * For logManyListings, there needs to be certain array keys which the API doesn't return
+     * THIS FUNCTION SHOULDN'T GO OUT OF SKIDDLE, IT IS JUST FOR US
+     * @param array $data The data to parse through.  Should be a result set from a SkiddleRequest::call()
+     * @param bool  $unset Whether we want to delete the original keys or not
+     * @return array The data with the keys jigged around
+     */
+    public function formatForLog($data = [], $unset = false)
+    {
+        $reformat = [
+            'promotorid'   => 'PromotorID',
+            'listingid'    => 'ListingID',
+            'eventname'    => 'EventName',
+            'description'  => 'EventDesc',
+            'description'  => 'EventDescShort',
+            'cancelled'    => 'Cancelled',
+            'goingtocount' => 'goingto',
+            'id'           => 'iListingInstance',
+            'date'         => 'iEventDate',
+            'tickets'      => 'ticketsAdded',
+            'minage'       => 'MinAge',
+            'entryprice'   => 'EntryPrice',
+        ];
+        $reformat_venues = [
+            'name' => 'Name',
+            'id'   => 'EntID',
+            'town' => 'Town',
+            'postcode_lookup' => 'postcode_lookup',
+            'currentranking' => 'currentRanking',
+            'currentrankingmax' => 'currentRankingMax',
+        ];
+        $reformat_times = [
+            'doorsopen'  => 'DoorsOpen',
+            'doorsclose' => 'DoorsClose'
+
+        ];
+        foreach ($data as $k => $ticket) {
+            foreach ($reformat as $old => $new) {
+                $data[$k][$new] = $ticket[$old];
+                if ($unset) {
+                    unset($data[$k][$old]);
+                }
+            }
+            foreach ($reformat_venues as $old => $new) {
+                $data[$k][$new] = $ticket['venue'][$old];
+                if ($unset) {
+                    unset($data[$k]['venue'][$old]);
+                }
+            }
+            $data[$k]['Town'] = $ticket['venue']['town']; //:thinking_face:
+            foreach ($reformat_times as $old => $new) {
+                $data[$k][$new] = $ticket['openingtimes'][$old];
+                if ($unset) {
+                    unset($data[$k]['openingtimes'][$old]);
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
      * Connect to request class to make the actual call
      * @param  string $endpoint The endpoint URL to call
      * @param bool    $asArray Whether to return results as array or object
