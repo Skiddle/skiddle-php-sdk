@@ -25,6 +25,7 @@
         <li><a href="result.php?test=7">Details about an up-and-coming act</a></li>
         <li><a href="result.php?test=8">All your events</a></li>
         <li><a href="result.php?test=9">Events tagged to Brand 'Wierd Science'</a></li>
+        <li><a href="result.php?test=10">Events held at Venue 'Thekla, Bristol'</a></li>
     </ul>
 </main>
 
