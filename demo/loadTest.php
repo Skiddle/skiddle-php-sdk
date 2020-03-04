@@ -141,6 +141,35 @@ $results = $events->getListings(); ?>',true);
             }
             return $results;
             break;
+
+        case 9:
+            //test 9 - events by brand
+            try {
+
+            $events->addCond('b',9433);
+            $results = $events->getListings();
+            $debugInfo = $events->getDebugInfo();
+            $debugInfo .= highlight_string('<?php '.$connect_block.'$events->addCond(\'b\',9433);
+                    $results = $events->getListings(); ?>',true);
+            } catch (SkiddleSDK\SkiddleException $e) {
+                return $e->getMessage();
+            }
+            return $results;
+            break;
+        case 10:
+            //test 10 - events by venue
+            try {
+
+                $events->addCond('venueid',1480);
+                $results = $events->getListings();
+                $debugInfo = $events->getDebugInfo();
+                $debugInfo .= highlight_string('<?php '.$connect_block.'$events->addCond(\'venueid\',1480);
+                    $results = $events->getListings(); ?>',true);
+            } catch (SkiddleSDK\SkiddleException $e) {
+                return $e->getMessage();
+            }
+            return $results;
+            break;
         default:
             //everything
             try {
@@ -183,6 +212,12 @@ function getTitle($test)
             break;
         case 7:
             return "Details about an up-and-coming act";
+            break;
+        case 9:
+            return "Events by brand";
+            break;
+        case 10:
+            return "Events by venue";
             break;
         default:
             return "Screw it, just get me all your events";

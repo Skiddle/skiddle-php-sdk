@@ -16,14 +16,15 @@
     <h3>Find me...</h3>
 
     <ul>
-        <li><a href="result.php?test=1">Listings not too far from Manchester, within 10 miles anyway</a></li>
+        <li><a href="result.php?test=1">Listings not too far from Manchester, within 10 miles</a></li>
         <li><a href="result.php?test=2">The latest club nights - not too bothered about what order they're in</a></li>
         <li><a href="result.php?test=3">A list of events all the cool people are going to</a></li>
         <li><a href="result.php?test=4">The best of everything - Tribute Acts</a></li>
-        <li><a href="result.php?test=5">Anything happening between teatime tonight and dinnertime next tuesday. To clarify I have my tea at 6 and eat lunch at 12</a></li>
-        <li><a href="result.php?test=6">Events that still have tickets on sale so that I don't look like a right idiot at the box office</a></li>
+        <li><a href="result.php?test=5">Anything happening between 6pm tonight and 12pm next Tuesday. </a></li>
+        <li><a href="result.php?test=6">Events that still have tickets on sale</a></li>
         <li><a href="result.php?test=7">Details about an up-and-coming act</a></li>
-        <li><a href="result.php?test=8">Screw it, just get me all your events</a></li>
+        <li><a href="result.php?test=8">All your events</a></li>
+        <li><a href="result.php?test=9">Events tagged to Brand 'Wierd Science'</a></li>
     </ul>
 </main>
 
