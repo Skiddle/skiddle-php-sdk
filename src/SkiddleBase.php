@@ -53,6 +53,10 @@ class SkiddleBase
         if (is_array($val)) {
             $val = implode(',', $val);
         }
+        
+        if (is_bool($val) === true) {
+            $val = boolval($val);
+        }
         $this->conditions[$key] = $val;
     }
 
