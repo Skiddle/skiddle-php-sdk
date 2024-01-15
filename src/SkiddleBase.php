@@ -113,7 +113,7 @@ class SkiddleBase
             'entryPrice'   => 'EntryPrice',
             'largeImageUrl'=> 'largeimageurl'
         ];
-        $reformat_venues = [
+        $reformatVenues = [
             'name' => 'Name',
             'id'   => 'EntID',
             'town' => 'Town',
@@ -122,7 +122,7 @@ class SkiddleBase
             'currentranking' => 'currentRanking',
             'currentrankingmax' => 'currentRankingMax',
         ];
-        $reformat_times = [
+        $reformatTmes = [
             'doorsopen'  => 'DoorsOpen',
             'doorsclose' => 'DoorsClose',
             'doorsOpen'  => 'DoorsOpen',
@@ -136,14 +136,14 @@ class SkiddleBase
                     unset($data[$k][$old]);
                 }
             }
-            foreach ($reformat_venues as $old => $new) {
+            foreach ($reformatVenues as $old => $new) {
                 $data[$k][$new] = $ticket['venue'][$old];
                 if ($unset) {
                     unset($data[$k]['venue'][$old]);
                 }
             }
             $data[$k]['Town'] = $ticket['venue']['town']; //:thinking_face:
-            foreach ($reformat_times as $old => $new) {
+            foreach ($reformatTmes as $old => $new) {
                 $data[$k][$new] = $ticket['openingtimes'][$old];
                 if ($unset) {
                     unset($data[$k]['openingtimes'][$old]);
@@ -172,7 +172,7 @@ class SkiddleBase
 
             if (array_key_exists($key, $renameKeys)) {
                 $newKey = $renameKeys[$key];
-            }else{
+            } else {
                 $newKey = $key;
             }
 

@@ -14,27 +14,27 @@ class SkiddleRequest
 {
 
     /**
-     * @var The version of the API we are currently using
+     * @var string The version of the API we are currently using
      */
     const API_VER = "v1";
 
     /**
-     * @var The URL we want to make calls to
+     * @var string The URL we want to make calls to
      */
     const API_URL = 'https://www.skiddle.com/api/';
 
     /**
-     * @var The URL we want to make calls to (new api)
+     * @var string The URL we want to make calls to (new api)
      */
     const API_V3_URL = 'https://api.skiddle.com/v3';
 
     /**
-     * @var Whether we are in dev mode or not
+     * @var bool Whether we are in dev mode or not
      */
     public $dev_mode;
 
     /**
-     * @var Switch between different api versions
+     * @var int Switch between different api versions
      */
     public $apiVersion = 1;
 
@@ -45,11 +45,13 @@ class SkiddleRequest
     {
     }
 
-    public function setApiVersion(int $apiVersion): void{
+    public function setApiVersion(int $apiVersion): void
+    {
         $this->apiVersion = $apiVersion;
     }
 
-    public function getApiVersion(): int{
+    public function getApiVersion(): int
+    {
         return $this->apiVersion;
     }
 
@@ -58,7 +60,8 @@ class SkiddleRequest
      * @param array  $requestData request keys to replace
      * @return array The formatted results
      */
-    public function transformRequestKeys($requestData){
+    public function transformRequestKeys($requestData)
+    {
 
         $renameKeys = [
             'api_key' => 'apiKey'
@@ -195,7 +198,6 @@ class SkiddleRequest
         $object = json_decode($data, $asArray);
         if (json_last_error() !== JSON_ERROR_NONE && json_last_error() !== 0) {
             throw new SkiddleException('Error parsing server response');
-            return false;
         }
         return $object;
     }
