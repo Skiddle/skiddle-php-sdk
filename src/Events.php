@@ -16,7 +16,7 @@ class Events extends SkiddleBase
     /**
      * @var string The endpoint we will be sending requests to
      */
-    const ENDPOINT = '/events/search/';
+    const ENDPOINT = '/events/instant-search/';
 
     /**
      * @var string The endpoint for calling single events
@@ -38,6 +38,7 @@ class Events extends SkiddleBase
      */
     public function getListings($asArray = false)
     {
+        $this->request->setApiVersion(3);
         return $this->makeCall(self::ENDPOINT, $asArray);
     }
 

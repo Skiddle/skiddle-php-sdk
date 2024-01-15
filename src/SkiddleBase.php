@@ -53,7 +53,7 @@ class SkiddleBase
         if (is_array($val)) {
             $val = implode(',', $val);
         }
-        
+
         if (is_bool($val) === true) {
             $val = boolval($val);
         }
@@ -104,18 +104,29 @@ class SkiddleBase
             'tickets'      => 'ticketsAdded',
             'minage'       => 'MinAge',
             'entryprice'   => 'EntryPrice',
+
+            'promotorId'   => 'promotorID',
+            'listingId'    => 'ListingID',
+            'eventName'    => 'EventName',
+            'goingToCount' => 'goingto',
+            'minAge'       => 'MinAge',
+            'entryPrice'   => 'EntryPrice',
+            'largeImageUrl'=> 'largeimageurl'
         ];
         $reformat_venues = [
             'name' => 'Name',
             'id'   => 'EntID',
             'town' => 'Town',
             'postcode_lookup' => 'postcode_lookup',
+            'postcodeLookup' => 'postcode_lookup',
             'currentranking' => 'currentRanking',
             'currentrankingmax' => 'currentRankingMax',
         ];
         $reformat_times = [
             'doorsopen'  => 'DoorsOpen',
-            'doorsclose' => 'DoorsClose'
+            'doorsclose' => 'DoorsClose',
+            'doorsOpen'  => 'DoorsOpen',
+            'doorsClose' => 'DoorsClose'
 
         ];
         foreach ($data as $k => $ticket) {
@@ -137,10 +148,102 @@ class SkiddleBase
                 if ($unset) {
                     unset($data[$k]['openingtimes'][$old]);
                 }
+                $data[$k][$new] = $ticket['openingTimes'][$old];
+                if ($unset) {
+                    unset($data[$k]['openingTimes'][$old]);
+                }
             }
         }
 
         return $data;
+    }
+
+    /**
+     * v3 API - helper function
+     * @param array  $responseData event data in the response
+     * @param array  $renameKeys keys to remap
+     * @return array event data with transformed keys
+     */
+    private function recursiveRenameKeys(array $array, array $renameKeys): array
+    {
+        $newArray = [];
+
+        foreach ($array as $key => $value) {
+
+            if (array_key_exists($key, $renameKeys)) {
+                $newKey = $renameKeys[$key];
+            }else{
+                $newKey = $key;
+            }
+
+            if (is_array($value)) {
+                $newArray[$newKey] = $this->recursiveRenameKeys($value, $renameKeys);
+            } else {
+                $newArray[$newKey] = $value;
+            }
+        }
+
+        return $newArray;
+    }
+
+    /**
+     * v3 API - backward compatability workaround for old requests
+     * @param array  $responseData The results to group
+     * @return array The formatted results
+     */
+    public function transformResponseKeys(array $responseData): array
+    {
+
+        $renameKeys = [
+            'listingId' => 'listingid',
+            'uniqueListingIdentifier' => 'uniquelistingidentifier',
+            'hasCollapsedResults' => 'hascollapsedresults',
+            'countCollapsedResults' => 'countcollapsedresults',
+            'eventCode' => 'EventCode',
+            'eventName' => 'eventname',
+            'postcodeLookup' => 'postcode_lookup',
+
+            'imageUrl' => 'imageurl',
+            'largeImageUrl' => 'largeimageurl',
+            'xLargeImageUrl' => 'xlargeimageurl',
+            'xLargeImageUrlWebP' => 'xlargeimageurlWebP',
+
+            'startDate' => 'startdate',
+            'endDate' => 'enddate',
+
+            'openingTimes' => 'openingtimes',
+            'doorsOpen' => 'doorsopen',
+            'doorsClose' => 'doorsclose',
+            'lastEntry' => 'lastentry',
+
+            'minAge' => 'minage',
+            'imGoing' => 'imgoing',
+            'goingTos' => 'goingtos',
+            'goingToCount' => 'goingtocount',
+            'entryPrice' => 'entryprice',
+            'eventVisibility' => 'eventvisibility',
+
+            'artistId' => 'artistid',
+            'genreId' => 'genreid',
+            'spotifyMp3Url' => 'spotifymp3url',
+            'spotifyArtistUrl' => 'spotifyartisturl',
+
+            'promotorId' => 'promotorid',
+            'noFees' => 'nofees',
+            'featureDays' => 'FeatureDays',
+            'feature' => 'Feature',
+            'dateAdded' => 'dateadded',
+
+            'inAppPurchase' => 'inapppurchase',
+            'applePay' => 'applepay',
+            'androidPay' => 'androidpay',
+
+            'fullDescription' => 'fulldescription',
+
+        ];
+
+        return $this->recursiveRenameKeys($responseData, $renameKeys);
+
     }
 
     /**
@@ -155,8 +258,8 @@ class SkiddleBase
         $args = $this->conditions;
 
         //QUIRK: API expects eventcode to be uppercase
-        if (isset($args['eventcode'])) {
-            $args['eventcode'] = strtoupper($args['eventcode']);
+        if (isset($args['eventCode'])) {
+            $args['eventCode'] = strtoupper($args['eventCode']);
         }
         //append the api key to the arguments
         $args['api_key'] = $this->session->api_key;
