@@ -45,7 +45,7 @@ class SkiddleRequest
     {
     }
 
-    public function setApiVersion(int $apiVersion): void
+    public function setApiVersion(int $apiVersion)
     {
         $this->apiVersion = $apiVersion;
     }
@@ -56,11 +56,11 @@ class SkiddleRequest
     }
 
     /**
-     * v3 API - forces camelcasing of request & response data
+     * Updates the casing of names in request data
      * @param array  $requestData request keys to replace
      * @return array The formatted results
      */
-    public function transformRequestKeys($requestData)
+    public function transformRequestKeys(array $requestData)
     {
 
         $renameKeys = [
