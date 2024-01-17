@@ -122,7 +122,7 @@ class SkiddleBase
             'currentranking' => 'currentRanking',
             'currentrankingmax' => 'currentRankingMax',
         ];
-        $reformatTmes = [
+        $reformatTimes = [
             'doorsopen'  => 'DoorsOpen',
             'doorsclose' => 'DoorsClose',
             'doorsOpen'  => 'DoorsOpen',
@@ -143,7 +143,7 @@ class SkiddleBase
                 }
             }
             $data[$k]['Town'] = $ticket['venue']['town']; //:thinking_face:
-            foreach ($reformatTmes as $old => $new) {
+            foreach ($reformatTimes as $old => $new) {
                 $data[$k][$new] = $ticket['openingtimes'][$old];
                 if ($unset) {
                     unset($data[$k]['openingtimes'][$old]);
