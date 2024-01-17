@@ -53,7 +53,7 @@ class SkiddleBase
         if (is_array($val)) {
             $val = implode(',', $val);
         }
-        
+
         if (is_bool($val) === true) {
             $val = boolval($val);
         }
@@ -104,18 +104,29 @@ class SkiddleBase
             'tickets'      => 'ticketsAdded',
             'minage'       => 'MinAge',
             'entryprice'   => 'EntryPrice',
+
+            'promotorId'   => 'promotorID',
+            'listingId'    => 'ListingID',
+            'eventName'    => 'EventName',
+            'goingToCount' => 'goingto',
+            'minAge'       => 'MinAge',
+            'entryPrice'   => 'EntryPrice',
+            'largeImageUrl'=> 'largeimageurl'
         ];
-        $reformat_venues = [
+        $reformatVenues = [
             'name' => 'Name',
             'id'   => 'EntID',
             'town' => 'Town',
             'postcode_lookup' => 'postcode_lookup',
+            'postcodeLookup' => 'postcode_lookup',
             'currentranking' => 'currentRanking',
             'currentrankingmax' => 'currentRankingMax',
         ];
-        $reformat_times = [
+        $reformatTimes = [
             'doorsopen'  => 'DoorsOpen',
-            'doorsclose' => 'DoorsClose'
+            'doorsclose' => 'DoorsClose',
+            'doorsOpen'  => 'DoorsOpen',
+            'doorsClose' => 'DoorsClose'
 
         ];
         foreach ($data as $k => $ticket) {
@@ -125,17 +136,21 @@ class SkiddleBase
                     unset($data[$k][$old]);
                 }
             }
-            foreach ($reformat_venues as $old => $new) {
+            foreach ($reformatVenues as $old => $new) {
                 $data[$k][$new] = $ticket['venue'][$old];
                 if ($unset) {
                     unset($data[$k]['venue'][$old]);
                 }
             }
             $data[$k]['Town'] = $ticket['venue']['town']; //:thinking_face:
-            foreach ($reformat_times as $old => $new) {
+            foreach ($reformatTimes as $old => $new) {
                 $data[$k][$new] = $ticket['openingtimes'][$old];
                 if ($unset) {
                     unset($data[$k]['openingtimes'][$old]);
+                }
+                $data[$k][$new] = $ticket['openingTimes'][$old];
+                if ($unset) {
+                    unset($data[$k]['openingTimes'][$old]);
                 }
             }
         }
@@ -155,8 +170,8 @@ class SkiddleBase
         $args = $this->conditions;
 
         //QUIRK: API expects eventcode to be uppercase
-        if (isset($args['eventcode'])) {
-            $args['eventcode'] = strtoupper($args['eventcode']);
+        if (isset($args['eventCode'])) {
+            $args['eventCode'] = strtoupper($args['eventCode']);
         }
         //append the api key to the arguments
         $args['api_key'] = $this->session->api_key;

@@ -14,25 +14,69 @@ class SkiddleRequest
 {
 
     /**
-     * @var The version of the API we are currently using
+     * @var string The version of the API we are currently using
      */
     const API_VER = "v1";
 
     /**
-     * @var The URL we want to make calls to
+     * @var string The URL we want to make calls to
      */
     const API_URL = 'https://www.skiddle.com/api/';
 
     /**
-     * @var Whether we are in dev mode or not
+     * @var string The URL we want to make calls to (new api)
+     */
+    const API_V3_URL = 'https://api.skiddle.com/v3';
+
+    /**
+     * @var bool Whether we are in dev mode or not
      */
     public $dev_mode;
+
+    /**
+     * @var int Switch between different api versions
+     */
+    public $apiVersion = 1;
 
     /**
      * Basic constructor
      */
     public function __construct()
     {
+    }
+
+    public function setApiVersion(int $apiVersion)
+    {
+        $this->apiVersion = $apiVersion;
+    }
+
+    public function getApiVersion(): int
+    {
+        return $this->apiVersion;
+    }
+
+    /**
+     * Updates the casing of names in request data
+     * @param array  $requestData request keys to replace
+     * @return array The formatted results
+     */
+    public function transformRequestKeys(array $requestData)
+    {
+
+        $renameKeys = [
+            'api_key' => 'apiKey'
+        ];
+
+        $newArgs = [];
+        foreach ($requestData as $key => $val) {
+            if (array_key_exists($key, $renameKeys)) {
+                $key = $renameKeys[$key];
+            }
+            $newArgs[$key] = $val;
+        }
+
+        return $newArgs;
+
     }
 
     /**
@@ -67,6 +111,12 @@ class SkiddleRequest
             CURLOPT_CAINFO => __DIR__ . '/cacert.pem',
         );
 
+        $options[CURLOPT_URL] = self::API_URL . self::API_VER;
+        if ($this->getApiVersion() == 3) {
+            $options[CURLOPT_URL] = self::API_V3_URL;
+            $args = $this->transformRequestKeys($args);
+        }
+
         switch ($method) {
             case 'DELETE':
             case 'PUT':
@@ -82,7 +132,7 @@ class SkiddleRequest
                 break;
         }
 
-        $options[CURLOPT_URL] = self::API_URL . self::API_VER . $url;
+        $options[CURLOPT_URL] .= $url;
 
         if ($this->dev_mode) {
             $start = strtotime('now');
@@ -122,11 +172,14 @@ class SkiddleRequest
             $errorBody = json_decode($rawBody);
 
             if (isset($errorBody->errormessage) && isset($errorBody->error)) {
-                // Error from the API
+                // API call error
                 throw new SkiddleException($errorBody->errormessage, $errorBody->error);
+            }elseif (isset($errorBody->detail) && isset($errorBody->status)) {
+                // API v3 call error
+                throw new SkiddleException(html_entity_decode($errorBody->detail, ENT_QUOTES), $errorBody->status);
             } else {
-                // Error from somewhere else
-                throw new SkiddleException('An unknown error occurred. - ' . $status, $status);
+                // Something else
+                throw new SkiddleException('An unknown error occurred - ' . $rawBody . '-' . $status, $status);
             }
         }
 
@@ -145,7 +198,6 @@ class SkiddleRequest
         $object = json_decode($data, $asArray);
         if (json_last_error() !== JSON_ERROR_NONE && json_last_error() !== 0) {
             throw new SkiddleException('Error parsing server response');
-            return false;
         }
         return $object;
     }
